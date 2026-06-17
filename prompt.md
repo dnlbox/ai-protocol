@@ -1,14 +1,21 @@
-# Initial Agent Prompt
+# Session kickstart
 
-Please read `AGENTS.md` to understand your operational constraints.
-Next, read `docs/concept/` to understand the overarching goal of this project.
+Static, do not edit per session. There is no "goal" to insert here: what to build
+lives in `docs/concept/` (the source of intent) and the current state lives in
+`BUILD_STATE.md` (the agent working area).
 
-**Your Goal for this Session:**
-[User will insert the specific goal here, e.g., "Scaffold the React frontend using the tokens defined in DESIGN.md"]
+## Start protocol
 
-**Instructions:**
+1. Read `AGENTS.md` (your contract), then inventory `.agents/` so project-local
+   skills are available before any work begins.
+2. Read `BUILD_STATE.md`. Reconcile `Now` against `git log --oneline -10` and the
+   test state: if they disagree, fix `Now` before doing anything else. If the file
+   is over budget (logs sprawling, contradictions present), run
+   `/consolidate-state` first.
+3. Exercise the last checkpoint (run the tests, a sample run, or boot the app) to
+   confirm it is real.
+4. Continue from `Now`'s "Next step". Record intent before the slice; verify and
+   checkpoint after. Never end on a broken tree.
 
-1. Start by reviewing `BUILD_STATE.md` to pick up any pending work.
-2. Formulate a plan and execute the code changes.
-3. Validate your changes using the workflow defined in `AGENTS.md`.
-4. Update `BUILD_STATE.md` with your progress before you finish.
+To (re)specialize the protocols after editing `docs/concept/`, run
+`/sync-protocols`, then clear the session and start again from this file.

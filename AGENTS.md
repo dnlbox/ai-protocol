@@ -1,37 +1,155 @@
-# Project AI Agent Guidelines (AGENTS.md)
+# AGENTS.md
 
-This document establishes the canonical behavioral and operational boundaries for all AI coding assistants (Claude Code, Cursor, Antigravity, OpenCode, etc.) interacting with this repository.
+The canonical, harness-agnostic contract for any AI coding agent in this repo
+(Claude Code, Codex, Gemini / Antigravity, Cursor, opencode, and others). Read
+this first, every session. It is intentionally lean so the harness can cache it;
+volatile state and project detail live in the files it points to.
 
-> **AI Agent Directive:** You must read this file at the start of every session. Your actions must strictly adhere to the constraints defined below.
+This file has two layers, and the split is the whole point:
 
-## 1. Operational Constraints (DO NOTS)
+- Operational canonical (everything above the Project Specifics marker): the
+  universal, stack-agnostic guardrails for AI-assisted work, the Don'ts, the
+  workflow, delegation, and continuity. The same in every project. Do not
+  hand-edit it.
+- Project Specifics (below the marker): how those universals are realised for
+  this stack, the toolchain, validation gates, and stack rules. Reconciled from
+  `docs/concept/` by `/sync-protocols`, and hand-editable.
 
-Based on empirical analysis of mature projects, these boundaries are absolute:
+The baseline states intent; Project Specifics states the concrete how. If a
+project looks nothing like a web app (an ML pipeline, a game, a batch system, a
+native binary), nothing in the baseline changes: only Project Specifics does.
 
-- **Never modify generated files**: Do not touch build outputs, compiled binaries, or auto-generated type definitions.
-- **Never bypass type checking**: Do not use `any`, `unknown`, `@ts-ignore`, or unsafe casts to paper over broken types. Validate at runtime boundaries instead.
-- **Never commit secrets**: Do not hardcode API keys, temporary tokens, or local `.env` values into tracked files.
-- **Never leave debug artifacts**: Do not leave `console.log()` outputs, print statements, or one-off script modifications in finalized commits. Use structured loggers (e.g., `[ClassName] prefix`).
-- **Never blindly override business logic**: Derive values in the correct use-case layer. Do not add business computation in proxy/routing layers.
+## Agnostic tooling convention
 
-## 2. Mandatory Validation Workflow
+- Persistent agent instructions live in `AGENTS.md` (this file). Any
+  harness-specific file only points here.
+- Subdirectories may carry their own `AGENTS.md`; the deepest one wins for that
+  path (useful in monorepos and multi-package trees).
+- Skills, hooks, rules, and settings live under `.agents/`. The engine ships
+  three canonical skills:
+  - `find-skills`: discover and install new capabilities (`npx skills`).
+  - `sync-protocols`: reconcile this file and `DESIGN.md` against `docs/concept/`.
+  - `consolidate-state`: keep `BUILD_STATE.md` lean and self-consistent.
 
-Before finalizing any slice of work, you must pass the following gates:
+## Source of truth
 
-1. **Formatting & Linting**: Run `npm run lint` or the equivalent linter for this project.
-2. **Type Checking**: Run strict type checks (e.g., `tsc --noEmit`).
-3. **Unit Tests**: Run the associated test suite.
-4. **Build Integrity**: Ensure the build command succeeds.
+- `docs/concept/` is the source: the human-authored intent for what gets built.
+  It may be unstructured, so read all of it. Infer the stack and goals from it;
+  do not expect a fixed file layout.
+- The `AGENTS.md` and `DESIGN.md` Project Specifics sections are derived from
+  `docs/concept/` via `/sync-protocols`. Users also hand-edit them, so never
+  clobber human content: merge.
+- `BUILD_STATE.md` is the agent working area (state, progress, handoff). Agents
+  own it; the user does not maintain it.
+- `prompt.md` is the static session kickstart. It does not change per session.
 
-## 3. Architecture & Navigation
+## Operational constraints (do not)
 
-- **docs/concept/**: Contains the strategic vision, architectural blueprints, and `DESIGN.md`. Read these to understand the _intent_ before writing implementation logic.
-- **Layered Guidance**: Subdirectories may contain their own localized `AGENTS.md` (e.g., `src/components/AGENTS.md`). In conflicts, the most deeply nested `AGENTS.md` takes precedence for that folder.
-- **Separation of Concerns**: Visual design tokens and UI rationale are managed strictly in `DESIGN.md`. Do not invent UI tokens; use existing ones.
+- Never modify generated or build output: compiled artifacts, generated types, or
+  lockfiles (unless the task itself is the dependency change).
+- Never suppress the checks the project relies on: do not silence the type system
+  or errors with unsafe casts or blanket ignore directives (for example TS
+  `any` / `@ts-ignore`). Validate at boundaries and handle the error.
+- Never commit secrets, tokens, or local env values.
+- Never leave debug artifacts (stray prints or logs). Use the project's logger.
+- Never expand scope. Every changed line traces to the task; do not refactor
+  unrelated code, and match existing style.
+- Never run a command that is not declared in Project Specifics. Ask, or add it
+  via `/sync-protocols`. Do not guess.
+- Get approval before destructive or outward-facing actions: commits, database
+  writes, and any external comms (GitHub, Slack, issues).
 
-## 4. State Management (`BUILD_STATE.md`)
+## Validation workflow
 
-- If you are interrupted or experiencing token exhaustion, you MUST update `BUILD_STATE.md` with:
-  1. What was just completed.
-  2. The current exact state (broken tests, partial implementations).
-  3. The immediate next step for the next agent session.
+Before finalizing any slice, run the project's declared validation gates (in
+Project Specifics), in order, and ensure each passes. What the gates are is a
+project concern, not a fixed list: a typed web stack might use format, lint,
+typecheck, test, build; an ML pipeline an eval-metric threshold; a batch system a
+clean compile plus an output diff; a native binary a sanitizer run.
+
+Every slice ends verified by exercising the change against reality (the running
+app, a pipeline run, a job's output, a binary run, the test suite), not by
+assuming from code. If no gates are declared, ask or run `/sync-protocols` before
+claiming validation.
+
+## Delegation & model routing
+
+Tokens are the scarcest resource, main-loop context most of all. The main agent
+is the architect and integrator, not the typist. Route work by capability tier;
+each harness maps a tier to one of its own models.
+
+- deep (main loop): architecture, security / auth / tenancy, integration,
+  debugging, all commits and `BUILD_STATE.md` edits, every decision.
+- standard (subagent): well-specified implementation against a clear contract, a
+  component to a prop spec, a migration, a route handler, a test suite.
+- fast (subagent): mechanical or bulk work, renames, fixtures, seed data, string
+  extraction, pattern refactors.
+- explore (read-only subagent): "where is X / how does Y work" questions. Do not
+  burn main context reading what a subagent can summarize.
+
+Safety: parallelise within a slice, never across (slices stay sequential and
+verified); one writer per file area (worktree isolation if unavoidable);
+subagent output is untrusted until verified in the main loop; never delegate
+decisions, protocol or `BUILD_STATE.md` edits, or final integration. Long
+installs and builds run in the background.
+
+## Session continuity protocol
+
+Engineer for sudden death: a window can end abruptly.
+
+1. On start: read this file, inventory `.agents/`, read `BUILD_STATE.md`, check
+   `git log --oneline -10`, and exercise the last checkpoint (tests, a sample run,
+   or booting the app) to confirm it is real. Resuming is not a special mode; this
+   is the procedure.
+2. Before a slice: record intent in `BUILD_STATE.md` (what, why, how verified).
+3. After a slice: verify, replace `Now` in `BUILD_STATE.md`, add one terse line
+   to its Session log, and commit. The tree is never more than about an hour from
+   a clean, green commit.
+4. Never end on a broken tree. If tokens run low: stop adding behaviour, get to
+   green, checkpoint, write the next session's first step into `BUILD_STATE.md`.
+5. New decisions mid-build: take the smallest reversible default, log it in
+   `BUILD_STATE.md`, flag it for the user. Do not silently expand scope.
+
+<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocols,
+and hand-editable. Everything above is generic baseline; do not hand-edit it. -->
+
+## Project Specifics
+
+> Empty in a fresh scaffold. Put your intent in `docs/concept/`, then run
+> `/sync-protocols`. Shape these to the stack: a web app, an ML pipeline, a game,
+> a batch system, and a monorepo do not look alike here.
+
+### Descriptor
+
+What this project is, its current phase, and what is locked.
+
+### Toolchain
+
+The exact commands for this project. Never guess: if a command is not here, add it
+or run `/sync-protocols`. The rows below are examples for a typed web stack, shape
+the table to the stack: add, remove, or rename actions, and a monorepo or
+multi-platform project may use one table per package or target.
+
+| Action          | Command |
+| --------------- | ------- |
+| install         |         |
+| format          |         |
+| lint            |         |
+| typecheck       |         |
+| test            |         |
+| run / dev       |         |
+| build           |         |
+| package manager |         |
+
+### Validation gates
+
+The ordered checks a slice must pass before it is done, drawn from the Toolchain,
+or described where a gate is not a single command (an eval-metric threshold, an
+output diff against a baseline, a sanitizer run). Generated by `/sync-protocols`
+from the stack.
+
+### Stack-specific rules
+
+Conventions unique to this stack, added by `/sync-protocols` or by you.
+
+<!-- END PROJECT SPECIFICS -->

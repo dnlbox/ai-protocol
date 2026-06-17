@@ -1,21 +1,34 @@
-# Project Build State
+# Build State
 
-> **AI Agent Directive:** This is a living document. You must read this file upon starting a session to understand the current context. You must update this file before ending your session or if you encounter token exhaustion.
+Agent working area: the agents own this file, the user does not maintain it. A
+fresh session reads it top to bottom, then follows the start protocol in
+`prompt.md`. Keep it lean: prevention beats cleanup.
 
-## Current Objective
+Rules:
 
-[Provide a 1-sentence summary of the immediate goal.]
+- `Now` is replaced every checkpoint, never appended to. It is the single source
+  of "where we are". If it is longer than a screen, it is wrong.
+- `Decisions` and `Session log` are append-only and terse: one line each. The
+  full detail lives in git, not here.
+- When the logs cross their budget, run `/consolidate-state` (or it runs from the
+  start protocol): completed milestones collapse to a one-line summary in
+  `Archive`, and contradictions are reconciled against git and the test state.
 
-## Progress Status
+## Now
 
-- [x] Completed task 1
-- [ ] In-progress task 2
-- [ ] Upcoming task 3
+- Milestone:
+- Last verified checkpoint:   (commit + what is green)
+- Next step (start here):
+- Blockers:
 
-## Known Bugs / Blockers
+## Decisions
 
-- [List any currently failing tests, compilation errors, or unresolved bugs.]
+<!-- one dated line each: "YYYY-MM-DD: chose X over Y because Z" -->
 
-## Handoff Notes (For the next agent)
+## Session log
 
-[Leave explicit instructions here on what the next agent should do immediately upon waking up. E.g., "I finished implementing the proxy route but didn't write the tests. Please start by writing tests for `src/proxy.ts`."]
+<!-- one terse line per finished slice: "YYYY-MM-DD: slice N done + verified" -->
+
+## Archive
+
+<!-- completed milestones collapsed to one line each; git holds the full history -->

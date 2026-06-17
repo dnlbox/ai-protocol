@@ -1,6 +1,0 @@
-{
-  "system_prompt": "You are operating in a self-organizing workspace. Your primary context is located in AGENTS.md. You MUST read AGENTS.md, DESIGN.md, and BUILD_STATE.md before taking any action. Strictly follow the operational boundaries and update the state when finished.",
-  "workspace": {
-    "entrypoint": "AGENTS.md"
-  }
-}
