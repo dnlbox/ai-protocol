@@ -30,6 +30,10 @@ native binary), nothing in the baseline changes: only Project Specifics does.
   - `find-skills`: discover and install new capabilities (`npx skills`).
   - `sync-protocols`: reconcile this file and `DESIGN.md` against `docs/concept/`.
   - `consolidate-state`: keep `BUILD_STATE.md` lean and self-consistent.
+- Skills the project depends on are vendored under `.agents/skills/` and committed
+  (tracked in `skills-lock.json`), so every harness and a fresh clone get the same
+  set. Do not rely on a skill installed only at the harness or user level; if one
+  is useful, vendor it into the project with `find-skills`.
 
 ## Source of truth
 
