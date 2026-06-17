@@ -93,15 +93,21 @@ npx skills add vercel-labs/agent-skills@react-best-practices
 Learn more: https://skills.sh/vercel-labs/agent-skills/react-best-practices
 ```
 
-### Step 6: Offer to Install
+### Step 6: Offer to Install (project-local, for consistency)
 
-If the user wants to proceed, you can install the skill for them:
+Install into the project so every harness and a fresh clone get the same skill,
+not just your current one:
 
 ```bash
-npx skills add <owner/repo@skill> -g -y
+npx skills add <owner/repo@skill> -y
 ```
 
-The `-g` flag installs globally (user-level) and `-y` skips confirmation prompts.
+This vendors the skill under `.agents/skills/` and records it in `skills-lock.json`;
+commit both. Avoid `-g` (user- or harness-global) for anything the project depends
+on: a global install is invisible to other harnesses (Codex, Gemini, Cursor) and to
+teammates, which is how a project ends up relying on a skill that is not actually
+present everywhere. If a skill you rely on is currently installed only globally,
+vendor it into the project the same way.
 
 ## Common Skill Categories
 
