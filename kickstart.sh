@@ -19,11 +19,11 @@ TMP_DIR=$(mktemp -d)
 # Clone the repository (depth=1 for speed)
 git clone --depth 1 "$REPO_URL" "$TMP_DIR" --quiet
 
-# Create the target directory and move the template contents into it
+# Copy the full template, including hidden entries like .agents. The trailing
+# /. copies all contents (dotfiles included) without pulling in the parent dir,
+# avoiding the ".*" glob footgun that also matches "..".
 mkdir -p "$TARGET_DIR"
-cp -R "$TMP_DIR/template/"* "$TARGET_DIR/"
-# Ensure hidden directories like .agents are also copied
-cp -R "$TMP_DIR/template/".* "$TARGET_DIR/" 2>/dev/null || true
+cp -R "$TMP_DIR/template/." "$TARGET_DIR/"
 
 # Clean up
 rm -rf "$TMP_DIR"
