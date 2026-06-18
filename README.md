@@ -48,7 +48,12 @@ When the concept is solid, you run the `/sync-protocols` command. The AI reads t
 
 This is where the protocol shines. The operational rules are not guesswork: the baseline was distilled from a benchmark of more than 60 `AGENTS.md` files across large open-source projects, then tightened into one lean contract. Because those rules are baked into the repository, execution becomes mostly mechanical. You just let the agent run.
 
-The protocol dictates how to slice work and route each slice to the right model tier (a fast, cheap model for mechanical bulk, the deep model reserved for architecture and integration), how to self-heal failing tests, and how to cleanly restart when the context window exhausts. It uses `BUILD_STATE.md` as a persistent save state. If a session crashes, you start a new one. The incoming agent reads the state file, checks the git log, and picks up exactly where it left off.
+Four key mechanics, baked into `AGENTS.md`, make that safe:
+
+- **● Self-healing:** when a validation gate fails, the agent gets back to green before it moves on. It never leaves a broken tree behind.
+- **◆ Persistent state:** `BUILD_STATE.md` records where we are, what is next, and how it was verified. The project always knows its own state.
+- **■ Crash continuity:** token exhaustion or a dead window is survivable. The next session reads the state file and the git log, then resumes where the last one stopped.
+- **▲ Tiered delegation:** each slice routes to the right model, a fast cheap one for mechanical bulk, the deep one reserved for architecture and integration.
 
 ### Stage 4: Ejecting
 
