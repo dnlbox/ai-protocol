@@ -50,10 +50,10 @@ This is where the protocol shines. The operational rules are not guesswork: the 
 
 Four key mechanics, baked into `AGENTS.md`, make that safe:
 
-- **● Self-healing:** when a validation gate fails, the agent gets back to green before it moves on. It never leaves a broken tree behind.
-- **◆ Persistent state:** `BUILD_STATE.md` records where we are, what is next, and how it was verified. The project always knows its own state.
-- **■ Crash continuity:** token exhaustion or a dead window is survivable. The next session reads the state file and the git log, then resumes where the last one stopped.
-- **▲ Tiered delegation:** each slice routes to the right model, a fast cheap one for mechanical bulk, the deep one reserved for architecture and integration.
+- **Self-healing:** when a validation gate fails, the agent gets back to green before it moves on. It never leaves a broken tree behind.
+- **Persistent state:** `BUILD_STATE.md` records where we are, what is next, and how it was verified. The project always knows its own state.
+- **Crash continuity:** token exhaustion or a dead window is survivable. The next session reads the state file and the git log, then resumes where the last one stopped.
+- **Tiered delegation:** each slice routes to the right model, a fast cheap one for mechanical bulk, the deep one reserved for architecture and integration.
 
 ### Stage 4: Ejecting
 
