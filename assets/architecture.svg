@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" width="100%" height="100%">
+  <defs>
+    <style>
+      .text-title { fill: #0f172a; font-family: system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+      .text-desc { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-weight: 300; font-size: 12px; }
+      .text-code { fill: #0f172a; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; }
+      .line { stroke: #3b82f6; stroke-width: 1; fill: none; }
+      .accent { stroke: #f97316; stroke-width: 1.5; fill: none; }
+      .node { fill: none; stroke: #cbd5e1; stroke-width: 1; }
+      .dot { fill: #3b82f6; }
+      @media (prefers-color-scheme: dark) {
+        .text-title { fill: #f8fafc; }
+        .text-desc { fill: #94a3b8; }
+        .text-code { fill: #f8fafc; }
+        .line { stroke: #60a5fa; }
+        .accent { stroke: #fb923c; }
+        .node { stroke: #334155; }
+        .dot { fill: #60a5fa; }
+      }
+    </style>
+  </defs>
+
+  <!-- Left Side: Concept -->
+  <rect class="node" x="50" y="75" width="160" height="100" rx="4" />
+  <circle class="dot" cx="130" cy="110" r="4" />
+  <text class="text-title" x="130" y="140" text-anchor="middle">Concept Docs</text>
+  <text class="text-desc" x="130" y="155" text-anchor="middle">Unstructured Intent</text>
+  
+  <!-- Middle: Engine -->
+  <path class="accent" d="M 370 125 L 430 125 M 400 95 L 400 155" />
+  <circle class="node" cx="400" cy="125" r="40" />
+  <text class="text-code" x="400" y="185" text-anchor="middle">/sync-protocols</text>
+  <text class="text-desc" x="400" y="205" text-anchor="middle">Reconciliation Engine</text>
+
+  <!-- Right Side: Protocols -->
+  <rect class="node" x="600" y="40" width="150" height="60" rx="4" />
+  <text class="text-title" x="675" y="70" text-anchor="middle">AGENTS.md</text>
+  <text class="text-desc" x="675" y="85" text-anchor="middle">Operational Rules</text>
+
+  <rect class="node" x="600" y="150" width="150" height="60" rx="4" />
+  <text class="text-title" x="675" y="180" text-anchor="middle">DESIGN.md</text>
+  <text class="text-desc" x="675" y="195" text-anchor="middle">Architecture Specs</text>
+
+  <!-- Connection Lines -->
+  <path class="line" d="M 210 125 L 360 125" />
+  <polygon fill="#3b82f6" points="355,122 360,125 355,128" />
+
+  <path class="line" d="M 440 125 L 520 125 L 520 70 L 600 70" />
+  <polygon fill="#3b82f6" points="595,67 600,70 595,73" />
+
+  <path class="line" d="M 440 125 L 520 125 L 520 180 L 600 180" />
+  <polygon fill="#3b82f6" points="595,177 600,180 595,183" />
+</svg>

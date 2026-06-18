@@ -1,4 +1,4 @@
-# AI Protocol
+# ![AI Protocol, illustrated with watercolor systems and architectural linework](./assets/hero.png)
 
 When I start a new project now, I do not open with a prompt. I open with a blank concept folder.
 
@@ -26,7 +26,11 @@ If you want to try this out, kickstart a project:
 bash <(curl -s https://raw.githubusercontent.com/dnlbox/ai-protocol/main/kickstart.sh) my-project
 ```
 
-Or via degit: `npx degit dnlbox/ai-protocol/template my-project`
+Or via degit:
+
+```bash
+npx degit dnlbox/ai-protocol/template my-project
+```
 
 Here is how the workflow operates.
 
@@ -35,6 +39,8 @@ Here is how the workflow operates.
 You start in `docs/concept/`. Spend real time here. There is no source code. You write out the problem statement, user journeys, and constraints in plain markdown. The AI acts as a sounding board to interrogate your design, not a typist to generate boilerplate.
 
 ### Stage 2: Lock-in
+
+![Architecture synchronization diagram](./assets/architecture.svg)
 
 When the concept is solid, you run the `/sync-protocols` command. The AI reads the unstructured concept docs and proposes the most optimal stack for those specific constraints. It then compiles the `AGENTS.md` file, locking in the technical toolchain, the validation gates (how we test), and the operational rules.
 
