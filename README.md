@@ -40,9 +40,9 @@ When the concept is solid, you run the `/sync-protocols` command. The AI reads t
 
 ### Stage 3: Building (The Mechanics)
 
-This is where the protocol shines. Because the operational rules are baked into the repository, execution becomes mostly mechanical. You just let the agent run.
+This is where the protocol shines. The operational rules are not guesswork: the baseline was distilled from a benchmark of more than 60 `AGENTS.md` files across large open-source projects, then tightened into one lean contract. Because those rules are baked into the repository, execution becomes mostly mechanical. You just let the agent run.
 
-The protocol dictates how to slice work, how to self-heal failing tests, and how to cleanly restart when the context window exhausts. It uses `BUILD_STATE.md` as a persistent save state. If a session crashes, you start a new one. The incoming agent reads the state file, checks the git log, and picks up exactly where it left off.
+The protocol dictates how to slice work and route each slice to the right model tier (a fast, cheap model for mechanical bulk, the deep model reserved for architecture and integration), how to self-heal failing tests, and how to cleanly restart when the context window exhausts. It uses `BUILD_STATE.md` as a persistent save state. If a session crashes, you start a new one. The incoming agent reads the state file, checks the git log, and picks up exactly where it left off.
 
 ### Stage 4: Ejecting
 
