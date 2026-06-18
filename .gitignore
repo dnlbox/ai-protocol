@@ -1,3 +1,6 @@
 .env
 .mypy_cache
 /dataset/
+
+# local-only assets (kept out of the public repo)
+/playtest/
