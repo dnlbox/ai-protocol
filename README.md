@@ -1,88 +1,47 @@
-# ai-protocol
+# AI Protocol
 
-**Start with a concept, not a stack.**
+This is a pragmatic experiment in managing AI-assisted software projects. It attempts to solve the friction I keep hitting when switching between different AI harnesses or starting fresh repositories. 
 
-An agnostic agentic reasoning environment: a small, standardized set of files you
-drop into a new repository so that any AI coding agent (Claude Code, Codex, Cursor,
-Gemini / Antigravity, opencode) boots up with the same context, the same
-constraints, and the same memory.
+## The Problem
 
-Most AI-assisted projects begin by choosing a framework, then asking the agent to
-build a feature. This flips that. You describe *what* you are building in plain
-markdown; the agent infers the *how* (the stack, the toolchain, the validation
-gates) and writes it down where every future session can read it.
+Right now, we suffer from the "it works in my harness" problem. If you start a project in Cursor, switch to Claude Code, and then try Antigravity, the AI loses its mind. The context is broken. This happens because we rely on hidden global system prompts and editor-specific settings to teach the AI how we like to work.
 
-## The idea
+We also have a scaffolding problem. Most CLI tools force you to pick a technology stack (Next.js, FastAPI, Rust) before you even know what the product is. We lock ourselves into architectural decisions before the requirements exist.
 
-The expensive failures in AI-assisted work happen when you build before the
-requirements are broken down. Halfway through, you are switching libraries or
-rewriting core logic. So the protocol pushes the hard thinking to the front.
+## The Philosophy
 
-You spend your time in `docs/concept/`. The agent compiles that intent into a
-contract it can execute against, then builds in small, verified slices, surviving
-crashes, token exhaustion, and context resets without losing its place.
+This protocol introduces two shifts in how we start projects.
 
-Two layers, and the split is the whole point:
+First, we vendor AI behavior at the project level. Just like `package.json` tracks code dependencies so any developer can run `npm install`, this protocol places the AI's operational rules directly inside the repository. Any agent that boots up in this folder gets the exact same capabilities, constraints, and context.
 
-- A **universal baseline** that never changes: the guardrails, the workflow, the
-  continuity rules.
-- A **project layer** compiled from your concept: the stack, the commands, the
-  gates. A web app, an ML pipeline, a Unity game, and a Rust binary each get a
-  layer that fits them, off the same baseline.
+Second, we force the concept phase. We do not scaffold frameworks. We scaffold a reasoning environment where the AI is forced to understand the product before it is allowed to write code.
 
-## Quickstart
+## The Lifecycle
 
+If you want to try this out, kickstart a project:
 ```bash
-# zero-dependency, works anywhere bash + git exist
 bash <(curl -s https://raw.githubusercontent.com/dnlbox/ai-protocol/main/kickstart.sh) my-project
-
-# or, if you already use node
-npx degit dnlbox/ai-protocol/template my-project
 ```
+Or via degit: `npx degit dnlbox/ai-protocol/template my-project`
 
-Then four moves:
+Here is how the workflow operates.
 
-1. **Describe.** Write what you want to build into `docs/concept/`. Unstructured
-   is fine: dump everything in your head.
-2. **Compile.** Ask your agent to run `/sync-protocols`. It reads your intent and
-   locks the stack into `AGENTS.md` (and your design tokens into `DESIGN.md`).
-3. **Build.** Point a fresh session at `prompt.md`. The agent breaks the concept
-   into verified slices and tracks progress in `BUILD_STATE.md`.
-4. **Resume.** If a session dies, the next one reads `BUILD_STATE.md` and
-   `git log`, then continues exactly where it stopped.
+### Stage 1: The Concept Phase
+You start in `docs/concept/`. There is no source code. You write out the problem statement, user journeys, and constraints in plain markdown. You run theoretical pen tests with the AI. You poke holes in the idea. The AI acts as a sounding board, not a typist.
 
-## What is in the box
+### Stage 2: Lock-in
+When the concept is solid, you run the `/sync-protocols` command. The AI reads the unstructured concept docs and deduces the most optimal stack for those specific constraints. It then compiles the `AGENTS.md` file, locking in the technical toolchain, the validation gates (how we test), and the operational rules.
 
-| File | Role |
-| ---- | ---- |
-| `docs/concept/` | The source of truth: your intent, maintained by hand. |
-| `AGENTS.md` | The contract every agent reads first: universal baseline plus a compiled project layer. |
-| `DESIGN.md` | Design tokens and rationale, for projects with a UI. |
-| `BUILD_STATE.md` | The save state: where we are, what is next, how it was verified. |
-| `prompt.md` | The static session kickstart. |
-| `.agents/skills/` | Vendored skills, committed, so every harness and every clone gets the same capabilities. |
+### Stage 3: Building
+Now you build. You write prompts to kick off slices of work. The protocol dictates the mechanics. The AI writes code, runs the validation gates defined in `AGENTS.md`, and self-heals when tests fail. 
 
-Three engine skills ship with it: `sync-protocols` (compile concept into contract),
-`consolidate-state` (keep the save state lean), and `find-skills` (vendor new
-capabilities into the repo).
+Crucially, it uses `BUILD_STATE.md` as a persistent save state. If a session crashes, an API token exhausts, or context window fills up, you just start a new session. The incoming agent reads the state file, checks the git log, and picks up exactly where the dead session left off. 
 
-## Why it survives long runs
+### Stage 4: Ejecting
+Eventually, the project matures. The initial concept documents become outdated. You can safely eject from this pure conceptual state. You rely heavily on standard tests and CI/CD pipelines. The `.agents/` folder and `AGENTS.md` just become a canonical onboarding guide for new AI agents entering the codebase.
 
-The mechanics are the point. Because the protocol encodes how to slice work, how to
-get back to green when a check fails, and how to restart cleanly when the context
-window fills, the execution phase becomes mostly mechanical. Every slice ends on a
-clean, validated checkpoint, so the tree is never more than about an hour from a
-green commit. You put the deliberate work into the concept, then let the agent run
-the build.
+## Target Audience
 
-## Who it is for
+This is explicitly for greenfield projects. Do not try to backfill this rigor into legacy monoliths. Retroactively writing concept documentation to satisfy an agentic workflow rarely pays off.
 
-Greenfield projects. Backfilling concept docs and state tracking into a large,
-moving codebase rarely pays off. If you are starting fresh, this is for you.
-
-## This is an experiment
-
-I built this to cut the friction in my own workflow, and I am sharing it to learn
-how it breaks for other people. If you try it, I want to hear what worked and what
-did not. Open an [issue](https://github.com/dnlbox/ai-protocol/issues) with a rough
-edge, a result, or an idea.
+This workflow cut down the friction in my own daily operations, but it is an ongoing experiment. Try it out, pull it apart, and see where it breaks for you.
