@@ -35,6 +35,35 @@ native binary), nothing in the baseline changes: only Project Specifics does.
   set. Do not rely on a skill installed only at the harness or user level; if one
   is useful, vendor it into the project with `find-skills`.
 
+## Nesting & workspaces
+
+A project may be a single repo or a *workspace*: an umbrella whose `docs/concept/`
+describes a system, containing child projects that are each their own ai-protocol
+scope (often their own repo). Nesting can go deeper. The layers compose; they do
+not collide.
+
+- **AGENTS.md — deepest wins.** The nearest `AGENTS.md` above a path is the
+  contract for that path. The universal baseline (everything above the Project
+  Specifics marker) is identical at every level, so a child inherits the same
+  guardrails and only its Project Specifics differ. A workspace `AGENTS.md` adds
+  cross-project concerns (a Components dashboard, coordination rules) — not a
+  different baseline.
+- **BUILD_STATE.md — one per level.** A workspace's tracks cross-cutting work and
+  carries a Components table pointing at each child's `BUILD_STATE.md`; a child's
+  tracks only itself. Never edit a child's state from the workspace, or vice versa.
+- **Skills compose, and load lazily.** Workspace `.agents/skills/` holds generic,
+  cross-project capabilities; a child's holds project-specific ones. Working inside
+  a child, its skills compose with the workspace pool (child wins on a name clash).
+  At the workspace level, load the workspace skills; load a child's only when work
+  turns to that child. A child must be able to see the workspace pool, so if a
+  harness does not walk up the tree, the start protocol tells the agent to read
+  `<workspace>/.agents/skills/` as well. Vendor a skill at the lowest level that
+  needs it; a skill shared by several children belongs in the workspace.
+- **Level-aware start.** Find the nearest `AGENTS.md` above you — that is your
+  contract. A workspace contract means you are coordinating: read its Components
+  dashboard, then the target child's `BUILD_STATE.md` before diving in. A child
+  contract means you are building that child; the workspace is context, not scope.
+
 ## Source of truth
 
 - `docs/concept/` is the source: the human-authored intent for what gets built.

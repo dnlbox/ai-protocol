@@ -18,6 +18,12 @@ You start with a blank concept folder. You write the problem statement and the c
 
 Because the protocol handles the mechanics of how work gets executed (slicing tasks, self-healing, and restarting exhausted sessions), the actual coding phase becomes mechanical. As a minor side effect, this also makes the project entirely harness agnostic—whether you boot up Cursor, Claude Code, or Antigravity, the agent reads the rules from the repo and gets to work.
 
+## A concept layer, not a loop
+
+"Loop" has become the shorthand for the agentic execution cycle: the model acts, observes the result, and goes again until the work is done (Anthropic's agentic loop; tools like Claude Code even expose a `/loop`). ai-protocol is not that, and it is not an interval runner either. It is the layer the loop runs against.
+
+It shares the loop's instincts (durable, verifiable iteration with recovery), but it puts the thinking before the cycle rather than inside it. The concept docs fix intent up front, `AGENTS.md` fixes the contract, and `BUILD_STATE.md` holds the state. With those in the repo, any loop, in any harness, becomes mechanical and resumable: it reads the contract and the state, runs the next verified slice, and checkpoints. The loop is the engine; ai-protocol is the track it runs on.
+
 ## The Lifecycle
 
 If you want to try this out, kickstart a project:
@@ -58,6 +64,18 @@ Four key mechanics, baked into `AGENTS.md`, make that safe:
 ### Stage 4: Ejecting
 
 Eventually, the project matures. The initial concept documents become outdated. You can safely eject from this pure conceptual state. You rely heavily on standard tests and CI/CD pipelines. The `.agents/` folder and `AGENTS.md` just become a canonical onboarding guide for new AI agents entering the codebase.
+
+## Nesting and workspaces
+
+A project does not have to be one repo. An umbrella project (a workspace) can hold child projects, each its own ai-protocol scope, each often its own repo, nested as deep as you need: a monorepo of services, a set of sibling repos coordinated from above, or a personal workshop of independent tools.
+
+The layers compose rather than collide:
+
+- The nearest `AGENTS.md` above you is your contract. The universal baseline is the same at every level, so a child inherits the guardrails and only its Project Specifics differ; a workspace adds a Components dashboard and coordination rules.
+- Each level owns its own `BUILD_STATE.md`. The workspace tracks cross-cutting work and points at each child; a child tracks only itself.
+- Skills compose and load lazily: generic capabilities live at the workspace, project-specific ones at the child, and a child sees both (its own winning on a clash). At the workspace you load the shared set and pull a child's in only when work turns to it.
+
+Open a harness at the workspace to coordinate across children, or inside a child to build it. Either way the agent finds the nearest contract and the right state. Scaffold a workspace from `template-workspace/` instead of `template/`.
 
 ## Target Audience
 

@@ -148,33 +148,46 @@ and hand-editable. Everything above is generic baseline; do not hand-edit it. --
 
 ## Project Specifics
 
-> Empty in a fresh scaffold. Put your intent in `docs/concept/`, then run
-> `/sync-protocols`. Shape these to the stack: a web app, an ML pipeline, a game,
-> a batch system, and a monorepo do not look alike here.
+> This is a **workspace**: an umbrella that coordinates child projects, each its
+> own ai-protocol scope. The workspace itself builds nothing; it holds shared
+> context, shared skills, and the map of who-owns-what. Toolchain and validation
+> gates live in each child, not here. Put the system-level intent in
+> `docs/concept/`, then run `/sync-protocols`.
 
 ### Descriptor
 
-[Run `/sync-protocols` to populate this based on your `docs/concept/`]
+[Run `/sync-protocols`: what system this workspace coordinates, and its current
+cross-cutting focus.]
 
-### Toolchain
+### Components
 
-| Action          | Command |
-| --------------- | ------- |
-| install         |         |
-| format          |         |
-| lint            |         |
-| typecheck       |         |
-| test            |         |
-| run / dev       |         |
-| build           |         |
-| package manager |         |
+The child projects this workspace coordinates. Each is its own ai-protocol scope
+with its own `AGENTS.md` and `BUILD_STATE.md`. Keep this table current; it is the
+map a coordinating session reads first.
+
+| Component | Path | What it is | State |
+| --------- | ---- | ---------- | ----- |
+| _example_ | `./example` | one-line purpose | `example/BUILD_STATE.md` |
+
+### Coordination rules
+
+- One child is the active scope at a time. To work on a child, enter its directory
+  context and follow its `AGENTS.md`; do not edit a child's source or
+  `BUILD_STATE.md` from the workspace level.
+- Cross-cutting changes (a contract two children share, a rename across repos) are
+  the workspace's job: stage them child by child, each verified against its own
+  gates, never in one undifferentiated sweep.
+- Shared skills live in this workspace's `.agents/skills/` (generic, cross-project).
+  A child sees them composed with its own (child wins on a name clash). Load a
+  child's skills only when work turns to that child.
+- Each child stays independently buildable: a skill, contract, or fixture a child
+  depends on for a standalone clone is vendored into that child, not borrowed from
+  the workspace.
 
 ### Validation gates
 
-[Run `/sync-protocols` to populate this based on your `docs/concept/`]
-
-### Stack-specific rules
-
-[Run `/sync-protocols` to populate this based on your `docs/concept/`]
+The workspace has no build of its own. A cross-cutting change is "done" only when
+every child it touched is green under that child's own gates. When that is not a
+single command, describe the per-child checks here.
 
 <!-- END PROJECT SPECIFICS -->
