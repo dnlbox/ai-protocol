@@ -8,7 +8,8 @@ lives in `docs/concept/` (the source of intent) and the current state lives in
 
 1. Read `AGENTS.md` (your contract), then inventory `.agents/` so project-local
    skills are available before any work begins.
-2. Read `BUILD_STATE.md`. Reconcile `Now` against `git log --oneline -10` and the
+2. Read `BUILD_STATE.md`, then read `ROADMAP.md` if it exists. Reconcile `Now`
+   against `git log --oneline -10`, the roadmap position when present, and the
    test state: if they disagree, fix `Now` before doing anything else. If `Now`
    exceeds one screen, logs sprawl, git/test reality contradicts state, a
    workspace Components table drifted, or three shipped slices have accumulated

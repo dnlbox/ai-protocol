@@ -28,10 +28,14 @@ terse log line); this skill is the periodic deep clean.
 2. Compact the logs: collapse completed milestones in `Decisions` and `Session log`
    into a one-line summary each, moved to `Archive`. The full detail already lives
    in git, so do not preserve it here.
-3. Verify the budget: `Now` is at most a screen; `Decisions` and `Session log` hold
+3. If `Now` is carrying several future slices, ordered phases, or go/no-go gates,
+   do not compress that plan into state. Move it to an existing `ROADMAP.md`, or
+   flag that `/sync-protocols` should create one, then leave `BUILD_STATE.md`
+   pointing at the active roadmap position.
+4. Verify the budget: `Now` is at most a screen; `Decisions` and `Session log` hold
    only the current milestone's lines; any older finished work has a one-line
    `Archive` entry.
-4. Present the before/after as a diff and get approval before writing.
+5. Present the before/after as a diff and get approval before writing.
 
 ## Rules
 

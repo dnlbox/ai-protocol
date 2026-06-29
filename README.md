@@ -48,16 +48,17 @@ You start in `docs/concept/`. Spend real time here. There is no source code. You
 
 ![Architecture synchronization diagram](./assets/architecture.svg)
 
-When the concept is solid, you run the `/sync-protocols` command. The AI reads the unstructured concept docs and proposes the most optimal stack for those specific constraints. It then compiles the `AGENTS.md` file, locking in the technical toolchain, the validation gates (how we test), and the operational rules.
+When the concept is solid, you run the `/sync-protocols` command. The AI reads the unstructured concept docs and proposes the most optimal stack for those specific constraints. It then compiles the `AGENTS.md` file, locking in the technical toolchain, the validation gates (how we test), and the operational rules. If the project is too large to steer from `BUILD_STATE.md` alone, `/sync-protocols` also creates a `ROADMAP.md` with ordered phases, planned slices, and go/no-go gates.
 
 ### Stage 3: Building (The Mechanics)
 
 This is where the protocol shines. The operational rules are not guesswork: the baseline was distilled from a benchmark of more than 60 `AGENTS.md` files across large open-source projects, then tightened into one lean contract. Because those rules are baked into the repository, execution becomes mostly mechanical. You just let the agent run.
 
-Four key mechanics, baked into `AGENTS.md`, make that safe:
+Five key mechanics, baked into `AGENTS.md`, make that safe:
 
 - **Self-healing:** when a validation gate fails, the agent gets back to green before it moves on. It never leaves a broken tree behind.
 - **Persistent state:** `BUILD_STATE.md` records where we are, what is next, and how it was verified. The project always knows its own state.
+- **Roadmaps when needed:** complex projects can carry a generated `ROADMAP.md` for multi-slice plans and gate criteria, while `BUILD_STATE.md` stays focused on the current handoff.
 - **Crash continuity:** token exhaustion or a dead window is survivable. The next session reads the state file and the git log, then resumes where the last one stopped.
 - **Tiered delegation:** each slice routes to the right model, a fast cheap one for mechanical bulk, the deep one reserved for architecture and integration.
 

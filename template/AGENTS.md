@@ -74,6 +74,10 @@ not collide.
   clobber human content: merge.
 - `BUILD_STATE.md` is the agent working area (state, progress, handoff). Agents
   own it; the user does not maintain it.
+- `ROADMAP.md` is optional. `/sync-protocols` creates it when the project needs
+  several planned slices, ordered phases, or go/no-go gates that would make
+  `BUILD_STATE.md` sprawl. `BUILD_STATE.md` then points at the active roadmap
+  position instead of carrying the whole future plan.
 - `prompt.md` is the static session kickstart. It does not change per session.
 
 ## Operational constraints (do not)
@@ -130,10 +134,10 @@ installs and builds run in the background.
 
 Engineer for sudden death: a window can end abruptly.
 
-1. On start: read this file, inventory `.agents/`, read `BUILD_STATE.md`, check
-   `git log --oneline -10`, and exercise the last checkpoint (tests, a sample run,
-   or booting the app) to confirm it is real. Resuming is not a special mode; this
-   is the procedure.
+1. On start: read this file, inventory `.agents/`, read `BUILD_STATE.md`, read
+   `ROADMAP.md` if present, check `git log --oneline -10`, and exercise the last
+   checkpoint (tests, a sample run, or booting the app) to confirm it is real.
+   Resuming is not a special mode; this is the procedure.
 2. Before a slice: record intent in `BUILD_STATE.md` (what, why, how verified).
 3. After a slice: verify, replace `Now` in `BUILD_STATE.md`, add one terse line
    to its Session log, and run the closeout gates before commit. If

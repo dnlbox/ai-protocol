@@ -12,9 +12,10 @@ workspace scaffold, so the first job is to locate the level you are working at.
    the rest of this file as context only.
 2. Read this `AGENTS.md`, then inventory `.agents/` so workspace skills are
    available. A child's skills compose on top when work turns to that child.
-3. Read `BUILD_STATE.md`. Reconcile `Now` and the `Components` table against
-   reality (each child's `git log --oneline -10` and test state). Fix them before
-   doing anything else. If `Now` exceeds one screen, logs sprawl, git/test reality
+3. Read `BUILD_STATE.md`, then read `ROADMAP.md` if it exists. Reconcile `Now`,
+   the roadmap position when present, and the `Components` table against reality
+   (each child's `git log --oneline -10` and test state). Fix them before doing
+   anything else. If `Now` exceeds one screen, logs sprawl, git/test reality
    contradicts state, the Components table drifted, or three shipped slices have
    accumulated since the last archive, run `/consolidate-state` first.
 4. To work on a child: make it the active scope, read its `AGENTS.md` and

@@ -1,13 +1,14 @@
 ---
 name: sync-protocols
-description: Reconcile the protocol files (AGENTS.md and DESIGN.md) against docs/concept/. Use when the user has added or changed anything in docs/concept/, says "sync protocols", "update the protocols", "specialize the scaffold", or before closeout after any stack, scope, validation, toolchain, harness, or project-specific behavior change that should be reflected in the agent's contract.
+description: Reconcile the protocol files (AGENTS.md, DESIGN.md, and optional ROADMAP.md) against docs/concept/. Use when the user has added or changed anything in docs/concept/, says "sync protocols", "update the protocols", "specialize the scaffold", or before closeout after any stack, scope, validation, toolchain, harness, roadmap, or project-specific behavior change that should be reflected in the agent's contract.
 ---
 
 # Sync Protocols
 
 This skill keeps the derived protocol files specialized to the project. The source
 of truth is `docs/concept/`; the derived files are the Project Specifics regions
-of `AGENTS.md` and `DESIGN.md`. This skill is the compiler between them.
+of `AGENTS.md` and `DESIGN.md`, plus `ROADMAP.md` when the work needs a
+multi-slice plan. This skill is the compiler between them.
 
 The baseline (everything above the Project Specifics marker) is universal and is
 never touched. All stack shape lives in Project Specifics: that is where a Unity
@@ -16,16 +17,21 @@ and gates that actually fit them.
 
 ## What it owns
 
-It only edits content inside the Project Specifics markers:
+It owns these generated surfaces:
 
 - `AGENTS.md`: between `<!-- BEGIN PROJECT SPECIFICS -->` and
   `<!-- END PROJECT SPECIFICS -->` (Descriptor, Toolchain, Validation gates,
   Stack-specific rules).
 - `DESIGN.md`: the token frontmatter and the Project Specifics region.
+- `ROADMAP.md`: created or refreshed only when the concept implies several
+  planned slices, ordered phases, release gates, research/eval gates, migrations,
+  or other future work too large for `BUILD_STATE.md`'s `Now`.
 
 It never touches the generic baseline. It may seed `BUILD_STATE.md`'s `Now` once,
 when it is empty (bootstrap), but never edits a populated one: that is the agent
-working area (see `consolidate-state`).
+working area (see `consolidate-state`). When `ROADMAP.md` exists, `BUILD_STATE.md`
+should point at the active roadmap position and hold current evidence, not repeat
+the full plan.
 
 ## When it runs
 
@@ -35,6 +41,8 @@ working area (see `consolidate-state`).
   assumptions, or stack-specific behavior.
 - Before commit if `AGENTS.md` Project Specifics, `DESIGN.md`, or a prompt/start
   rule might now be stale.
+- When `BUILD_STATE.md` is starting to carry several future slices or gate logic
+  that belongs in an execution roadmap.
 - As a no-op audit when unsure: simulate the reconciliation, state that no
   protocol changes are needed, and record that decision in the handoff.
 
@@ -56,6 +64,9 @@ working area (see `consolidate-state`).
    - Stack-specific rules: conventions unique to this stack.
    - `DESIGN.md` tokens and rationale, if the project has a UI (reshape for the
      medium; a game art bible or a mobile HIG is not web CSS tokens).
+   - `ROADMAP.md`, only when needed: ordered phases or milestones, per-phase
+     goals, planned slices, go/no-go gates, and stop conditions. Do not create a
+     roadmap for tiny projects where `BUILD_STATE.md` can stay lean.
 4. Merge, do not clobber. The Project Specifics regions are co-owned: preserve any
    hand-written content the user added. Reconcile only what the concept docs imply;
    keep human additions unless they directly contradict the source.
@@ -73,7 +84,7 @@ working area (see `consolidate-state`).
 ## Rules
 
 - Edit only inside the Project Specifics markers (plus a one-time seed of an empty
-  `BUILD_STATE.md` `Now`).
+  `BUILD_STATE.md` `Now`) unless creating or refreshing `ROADMAP.md`.
 - Never invent a toolchain command. Blank-and-flag beats a wrong guess.
 - Surface contradictions between concept docs rather than silently resolving them.
 - After applying, suggest the user clear the session and resume from `prompt.md`.

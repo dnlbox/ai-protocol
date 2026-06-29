@@ -17,6 +17,8 @@ Numbered files read in order. A common shape:
 - `01_requirements.md` — scope, features, constraints.
 - `02_architecture.md` — high-level shape and key decisions.
 - `0X_technical_spec.md` — the stack and tooling (drives the AGENTS.md Toolchain).
+- `ROADMAP.md` is not part of this folder, but `/sync-protocols` may create it at
+  the repo root when the concept implies ordered phases or go/no-go gates.
 
 Use as many or as few as you like. Prose, bullets, or diagrams all work. The
 technical spec is just the highest-signal input; the agent does not require it.

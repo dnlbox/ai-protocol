@@ -43,12 +43,30 @@ If the audit finds no file changes, record that result. Silent non-use is a
 protocol failure because the next session cannot distinguish "checked and
 current" from "forgotten".
 
+## Roadmaps only when needed
+
+Some projects need more than a current-state handoff. When `docs/concept/` implies
+several planned slices, ordered phases, release gates, research/eval gates, or
+go/no-go checkpoints, `/sync-protocols` should create or refresh `ROADMAP.md`.
+
+`ROADMAP.md` is the execution strategy: phases, slice sequence, gate criteria,
+and stop conditions. `BUILD_STATE.md` remains the current handoff: active roadmap
+position, last verified checkpoint, next step, blockers, and gate evidence. If
+future planning starts accumulating in `BUILD_STATE.md`, that is a signal to move
+the plan into `ROADMAP.md`.
+
+Do not add a blank roadmap to every scaffold. Tiny projects should not pay for the
+extra file. The protocol introduces it only when the work is too large to keep
+`BUILD_STATE.md` lean.
+
 ## Desired behavior
 
 The protocol should make continuity boring:
 
 - A new session can read `AGENTS.md`, `BUILD_STATE.md`, and `prompt.md` and know
   whether the state is trustworthy.
+- If `ROADMAP.md` exists, the session can distinguish long-range execution
+  strategy from the current handoff.
 - A completed slice leaves protocol files synchronized with behavior, or records
   why no sync was needed.
 - Templates carry these rules so new projects inherit the discipline without
