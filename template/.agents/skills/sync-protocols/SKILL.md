@@ -1,6 +1,6 @@
 ---
 name: sync-protocols
-description: Reconcile the protocol files (AGENTS.md and DESIGN.md) against docs/concept/. Use when the user has added or changed anything in docs/concept/, says "sync protocols", "update the protocols", "specialize the scaffold", or after a stack or scope decision that should be reflected in the agent's contract.
+description: Reconcile the protocol files (AGENTS.md and DESIGN.md) against docs/concept/. Use when the user has added or changed anything in docs/concept/, says "sync protocols", "update the protocols", "specialize the scaffold", or before closeout after any stack, scope, validation, toolchain, harness, or project-specific behavior change that should be reflected in the agent's contract.
 ---
 
 # Sync Protocols
@@ -26,6 +26,17 @@ It only edits content inside the Project Specifics markers:
 It never touches the generic baseline. It may seed `BUILD_STATE.md`'s `Now` once,
 when it is empty (bootstrap), but never edits a populated one: that is the agent
 working area (see `consolidate-state`).
+
+## When it runs
+
+- Immediately after any `docs/concept/` change.
+- Before closeout when implementation changes toolchain, validation gates,
+  harness configuration, command surfaces, generated artifacts, runtime
+  assumptions, or stack-specific behavior.
+- Before commit if `AGENTS.md` Project Specifics, `DESIGN.md`, or a prompt/start
+  rule might now be stale.
+- As a no-op audit when unsure: simulate the reconciliation, state that no
+  protocol changes are needed, and record that decision in the handoff.
 
 ## Procedure
 
@@ -66,3 +77,5 @@ working area (see `consolidate-state`).
 - Never invent a toolchain command. Blank-and-flag beats a wrong guess.
 - Surface contradictions between concept docs rather than silently resolving them.
 - After applying, suggest the user clear the session and resume from `prompt.md`.
+- If the skill runs as a closeout gate and no file changes are needed, say so
+  explicitly. Silent non-use is a protocol failure.

@@ -13,7 +13,9 @@ Rules:
   child's git/tests. Detail lives in the child's `BUILD_STATE.md`, not here.
 - `Decisions` and `Session log` are append-only and terse: one line each. The full
   detail lives in git.
-- When the logs cross their budget, run `/consolidate-state`.
+- Run `/consolidate-state` when `Now` exceeds one screen, logs sprawl, git/test
+  reality contradicts state, the Components table drifts, or three shipped
+  cross-cutting slices have accumulated since the last archive.
 
 ## Now
 

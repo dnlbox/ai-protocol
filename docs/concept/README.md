@@ -18,6 +18,12 @@ Numbered files read in order. A common shape:
 - `02_architecture.md` — high-level shape and key decisions.
 - `0X_technical_spec.md` — the stack and tooling (drives the AGENTS.md Toolchain).
 
+This repo currently uses:
+
+- `00_blueprint.md` for the workspace vision and core protocol components.
+- `01_ideation.md` for raw product thinking.
+- `02_operational_feedback.md` for lessons folded back from real agent sessions.
+
 Use as many or as few as you like. Prose, bullets, or diagrams all work. The
 technical spec is just the highest-signal input; the agent does not require it.
 

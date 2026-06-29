@@ -136,11 +136,17 @@ Engineer for sudden death: a window can end abruptly.
    is the procedure.
 2. Before a slice: record intent in `BUILD_STATE.md` (what, why, how verified).
 3. After a slice: verify, replace `Now` in `BUILD_STATE.md`, add one terse line
-   to its Session log, and commit. The tree is never more than about an hour from
-   a clean, green commit.
-4. Never end on a broken tree. If tokens run low: stop adding behaviour, get to
+   to its Session log, and run the closeout gates before commit. If
+   `docs/concept/` changed, or implementation changed toolchain, validation,
+   harness configuration, command surfaces, or project-specific behavior, run or
+   simulate `/sync-protocols` and record the result. If `Now` exceeds one screen,
+   logs sprawl, git/test reality contradicts state, a workspace Components table
+   drifted, or three shipped slices accumulated since the last archive, run
+   `/consolidate-state`.
+4. The tree is never more than about an hour from a clean, green commit.
+5. Never end on a broken tree. If tokens run low: stop adding behaviour, get to
    green, checkpoint, write the next session's first step into `BUILD_STATE.md`.
-5. New decisions mid-build: take the smallest reversible default, log it in
+6. New decisions mid-build: take the smallest reversible default, log it in
    `BUILD_STATE.md`, flag it for the user. Do not silently expand scope.
 
 <!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocols,

@@ -10,9 +10,11 @@ Rules:
   of "where we are". If it is longer than a screen, it is wrong.
 - `Decisions` and `Session log` are append-only and terse: one line each. The
   full detail lives in git, not here.
-- When the logs cross their budget, run `/consolidate-state` (or it runs from the
-  start protocol): completed milestones collapse to a one-line summary in
-  `Archive`, and contradictions are reconciled against git and the test state.
+- Run `/consolidate-state` when `Now` exceeds one screen, logs sprawl, git/test
+  reality contradicts state, a workspace Components table drifts, or three
+  shipped slices have accumulated since the last archive. Completed milestones
+  collapse to one-line summaries in `Archive`, and contradictions are reconciled
+  against git and the test state.
 
 ## Now
 

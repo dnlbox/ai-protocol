@@ -1,6 +1,6 @@
 ---
 name: consolidate-state
-description: Keep BUILD_STATE.md lean and self-consistent. Use when BUILD_STATE.md has grown large, the logs sprawl, Now contradicts reality, or the start protocol flags it as over budget. Mirrors consolidate-memory, but for the agent working state.
+description: Keep BUILD_STATE.md lean and self-consistent. Use when BUILD_STATE.md has grown large, Now exceeds one screen, logs sprawl, git/test reality contradicts Now, a workspace Components table drifts, or three shipped slices have accumulated since the last archive. Mirrors consolidate-memory, but for the agent working state.
 ---
 
 # Consolidate State
@@ -15,6 +15,9 @@ terse log line); this skill is the periodic deep clean.
 - Manually, when you notice rot.
 - Automatically, when the start protocol in `prompt.md` finds the file over budget
   or self-contradictory.
+- As a closeout hygiene trigger after three shipped slices since the last archive.
+- Whenever `git log`, validation state, or a workspace Components dashboard
+  contradicts `Now`.
 
 ## Procedure
 
@@ -26,7 +29,8 @@ terse log line); this skill is the periodic deep clean.
    into a one-line summary each, moved to `Archive`. The full detail already lives
    in git, so do not preserve it here.
 3. Verify the budget: `Now` is at most a screen; `Decisions` and `Session log` hold
-   only the current milestone's lines.
+   only the current milestone's lines; any older finished work has a one-line
+   `Archive` entry.
 4. Present the before/after as a diff and get approval before writing.
 
 ## Rules
