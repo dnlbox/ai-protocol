@@ -30,7 +30,7 @@ terse log line); this skill is the periodic deep clean.
    in git, so do not preserve it here.
 3. If `Now` is carrying several future slices, ordered phases, or go/no-go gates,
    do not compress that plan into state. Move it to an existing `ROADMAP.md`, or
-   flag that `/sync-protocols` should create one, then leave `BUILD_STATE.md`
+   flag that `/sync-protocol` should create one, then leave `BUILD_STATE.md`
    pointing at the active roadmap position.
 4. Verify the budget: `Now` is at most a screen; `Decisions` and `Session log` hold
    only the current milestone's lines; any older finished work has a one-line
@@ -41,6 +41,6 @@ terse log line); this skill is the periodic deep clean.
 
 - Never invent history. If git and the file disagree, git wins.
 - Keep one line per archived milestone, not per slice.
-- Do not touch the protocol files (that is `sync-protocols`).
+- Do not touch the protocol files (that is `sync-protocol`).
 - This is housekeeping, not progress: do not change the planned next step except to
   correct it against reality.

@@ -31,7 +31,7 @@ Rules:
 
 ## Decisions
 
-- 2026-06-17: bootstrapped from `docs/concept/00_vision.md` by `/sync-protocols`.
+- 2026-06-17: bootstrapped from `docs/concept/00_vision.md` by `/sync-protocol`.
 
 ## Session log
 

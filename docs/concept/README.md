@@ -5,9 +5,9 @@ maintain by hand: dump everything in your head here, in whatever structure suits
 you. There is no required file layout and no required filenames.
 
 The agent reads all of it and infers your stack, goals, and constraints. Then
-`/sync-protocols` reconciles that intent into the protocol files (the Project
+`/sync-protocol` reconciles that intent into the protocol files (the Project
 Specifics regions of `AGENTS.md` and `DESIGN.md`). After you change anything here,
-run `/sync-protocols`, then clear the session and resume from `prompt.md`.
+run `/sync-protocol`, then clear the session and resume from `prompt.md`.
 
 ## Suggested structure (optional)
 
@@ -17,7 +17,7 @@ Numbered files read in order. A common shape:
 - `01_requirements.md` — scope, features, constraints.
 - `02_architecture.md` — high-level shape and key decisions.
 - `0X_technical_spec.md` — the stack and tooling (drives the AGENTS.md Toolchain).
-- `ROADMAP.md` is not part of this folder, but `/sync-protocols` may create it at
+- `ROADMAP.md` is not part of this folder, but `/sync-protocol` may create it at
   the repo root when the concept implies ordered phases or go/no-go gates.
 
 This repo currently uses:

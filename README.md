@@ -48,7 +48,7 @@ You start in `docs/concept/`. Spend real time here. There is no source code. You
 
 ![Architecture synchronization diagram](./assets/architecture.svg)
 
-When the concept is solid, you run the `/sync-protocols` command. The AI reads the unstructured concept docs and proposes the most optimal stack for those specific constraints. It then compiles the `AGENTS.md` file, locking in the technical toolchain, the validation gates (how we test), and the operational rules. If the project is too large to steer from `BUILD_STATE.md` alone, `/sync-protocols` also creates a `ROADMAP.md` with ordered phases, planned slices, and go/no-go gates.
+When the concept is solid, you run the `/sync-protocol` command. The AI reads the unstructured concept docs and proposes the most optimal stack for those specific constraints. It then compiles the `AGENTS.md` file, locking in the technical toolchain, the validation gates (how we test), and the operational rules. If the project is too large to steer from `BUILD_STATE.md` alone, `/sync-protocol` also creates a `ROADMAP.md` with ordered phases, planned slices, and go/no-go gates.
 
 ### Stage 3: Building (The Mechanics)
 
@@ -76,7 +76,7 @@ The layers compose rather than collide:
 - Each level owns its own `BUILD_STATE.md`. The workspace tracks cross-cutting work and points at each child; a child tracks only itself.
 - Skills compose and load lazily: generic capabilities live at the workspace, project-specific ones at the child, and a child sees both (its own winning on a clash). At the workspace you load the shared set and pull a child's in only when work turns to it.
 
-Open a harness at the workspace to coordinate across children, or inside a child to build it. Either way the agent finds the nearest contract and the right state. Scaffold a workspace from `template-workspace/` instead of `template/`.
+Open a harness at the workspace to coordinate across children, or inside a child to build it. Either way the agent finds the nearest contract and the right state.
 
 ## Target Audience
 

@@ -9,7 +9,7 @@ specialized to the stack and the project is ready to start building.
 1. Scaffold the protocol into a fresh repo (the six areas plus the engine skills).
 2. Write your ideas into `docs/concept/`. Here that is a single, deliberately
    unstructured `00_vision.md` brain-dump, no required format.
-3. Run `/sync-protocols`. Without touching the universal baseline, it reads the
+3. Run `/sync-protocol`. Without touching the universal baseline, it reads the
    concept and fills the Project Specifics of `AGENTS.md` and `DESIGN.md`,
    recommends stack skills, and seeds `BUILD_STATE.md`'s first `Now`.
 4. Clear the session (or start a new one) and point only at `prompt.md`. From

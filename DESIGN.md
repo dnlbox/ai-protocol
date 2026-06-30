@@ -1,5 +1,5 @@
 ---
-# Design tokens (machine-readable). Reconciled from docs/concept/ by /sync-protocols,
+# Design tokens (machine-readable). Reconciled from docs/concept/ by /sync-protocol,
 # and hand-editable. Delete this file if the project has no UI.
 name:
 colors:
@@ -18,7 +18,7 @@ The visual identity contract: design tokens (the frontmatter above) plus the
 rationale below. Agents must use these tokens and never invent new ones. For a
 project with no UI, delete this file.
 
-<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocols,
+<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocol,
 and hand-editable. -->
 
 ## Overview

@@ -19,8 +19,8 @@ lives in `docs/concept/` (the source of intent) and the current state lives in
 4. Continue from `Now`'s "Next step". Record intent before the slice; verify and
    checkpoint after. If `docs/concept/` changed, or implementation changed
    toolchain, validation, harness configuration, command surfaces, or
-   project-specific behavior, run or simulate `/sync-protocols` before closeout.
+   project-specific behavior, run or simulate `/sync-protocol` before closeout.
    Never end on a broken tree.
 
 To (re)specialize the protocols after editing `docs/concept/`, run
-`/sync-protocols`, then clear the session and start again from this file.
+`/sync-protocol`, then clear the session and start again from this file.

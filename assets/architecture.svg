@@ -29,7 +29,7 @@
   <!-- Middle: Engine -->
   <path class="accent" d="M 370 125 L 430 125 M 400 95 L 400 155" />
   <circle class="node" cx="400" cy="125" r="40" />
-  <text class="text-code" x="400" y="185" text-anchor="middle">/sync-protocols</text>
+  <text class="text-code" x="400" y="185" text-anchor="middle">/sync-protocol</text>
   <text class="text-desc" x="400" y="205" text-anchor="middle">Reconciliation Engine</text>
 
   <!-- Right Side: Protocols -->

@@ -1,9 +1,9 @@
 ---
-name: sync-protocols
-description: Reconcile the protocol files (AGENTS.md, DESIGN.md, and optional ROADMAP.md) against docs/concept/. Use when the user has added or changed anything in docs/concept/, says "sync protocols", "update the protocols", "specialize the scaffold", or before closeout after any stack, scope, validation, toolchain, harness, roadmap, or project-specific behavior change that should be reflected in the agent's contract.
+name: sync-protocol
+description: Reconcile the protocol files (AGENTS.md, DESIGN.md, and optional ROADMAP.md) against docs/concept/. Use when the user has added or changed anything in docs/concept/, says "sync protocol", "update the protocol", "specialize the scaffold", or before closeout after any stack, scope, validation, toolchain, harness, roadmap, or project-specific behavior change that should be reflected in the agent's contract.
 ---
 
-# Sync Protocols
+# Sync Protocol
 
 This skill keeps the derived protocol files specialized to the project. The source
 of truth is `docs/concept/`; the derived files are the Project Specifics regions

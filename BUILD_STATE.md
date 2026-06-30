@@ -17,13 +17,13 @@ Rules:
 ## Now
 
 - Milestone: nesting is first-class. Baseline defines workspace/child semantics;
-  `template-workspace/` ships an umbrella scaffold; README positions the protocol
-  against the "loop" term.
+  README positions the protocol against the "loop" term; the separate workspace
+  scaffold has been retired.
 - Last verified checkpoint: docs-only change; baselines verified identical across
-  `AGENTS.md`, `template/AGENTS.md`, `template-workspace/AGENTS.md` (above the
-  Project Specifics marker) bar the shared new Nesting section.
-- Next step (start here): when a real workspace exercises it (forge), fold back any
-  rough edges in `template-workspace/`.
+  `AGENTS.md` and `template/AGENTS.md` (above the Project Specifics marker) bar
+  the shared new Nesting section.
+- Next step (start here): continue folding real workspace exercise feedback into
+  the root protocol and production `template/`.
 - Blockers: none.
 
 ## Decisions
@@ -33,17 +33,16 @@ Rules:
   vendoring. Workspace holds generic skills, child holds specific; a child sees
   both (child wins on clash); workspace lazy-loads a child's skills only when work
   turns to it. Implemented as protocol semantics so it holds on any harness.
-- 2026-06-25: Added `template-workspace/` (umbrella scaffold) beside `template/`
-  rather than overloading one template; a workspace builds nothing, so it has a
-  Components dashboard and coordination rules instead of a toolchain/gates.
+- 2026-06-25: Tested a separate workspace template beside `template/`, then later
+  retired it because the extra template path did not carry its weight.
 - 2026-06-25: Positioned ai-protocol relative to "loop": it is the concept +
   contract + state layer a loop runs against, not an agent loop or interval runner.
 
 ## Session log
 
 <!-- one terse line per finished slice: "YYYY-MM-DD: slice N done + verified" -->
-- 2026-06-25: moved into forge workspace; added nesting baseline + template-workspace
-  + README "loop" and nesting sections.
+- 2026-06-25: moved into forge workspace; added nesting baseline + README "loop"
+  and nesting sections.
 
 ## Archive
 

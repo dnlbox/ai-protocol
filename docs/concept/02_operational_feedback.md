@@ -31,7 +31,7 @@ keeps decisions append-only and terse, and pushes completed detail into
 
 ## Sync protocols as closeout gate
 
-`/sync-protocols` should run, or be simulated as a no-op audit, before closeout
+`/sync-protocol` should run, or be simulated as a no-op audit, before closeout
 when either source intent or project behavior changed:
 
 - `docs/concept/` changed.
@@ -47,7 +47,7 @@ current" from "forgotten".
 
 Some projects need more than a current-state handoff. When `docs/concept/` implies
 several planned slices, ordered phases, release gates, research/eval gates, or
-go/no-go checkpoints, `/sync-protocols` should create or refresh `ROADMAP.md`.
+go/no-go checkpoints, `/sync-protocol` should create or refresh `ROADMAP.md`.
 
 `ROADMAP.md` is the execution strategy: phases, slice sequence, gate criteria,
 and stop conditions. `BUILD_STATE.md` remains the current handoff: active roadmap

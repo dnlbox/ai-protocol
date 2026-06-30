@@ -1,6 +1,6 @@
 ---
 # Art direction tokens for Lumen (a game, not a web UI). Reshaped from docs/concept/
-# by /sync-protocols, and hand-editable.
+# by /sync-protocol, and hand-editable.
 name: Lumen
 palette:
   night: "#0B0F14"    # the cold dark world (backgrounds)
@@ -20,7 +20,7 @@ The art direction contract for Lumen. This is a game art bible, not web UI token
 the palette and mood govern hand-painted assets, lighting, and HUD. Use these
 values; do not introduce new ones without updating this file.
 
-<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocols,
+<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocol,
 and hand-editable. -->
 
 ## Overview

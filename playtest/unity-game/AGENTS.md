@@ -13,7 +13,7 @@ This file has two layers, and the split is the whole point:
   hand-edit it.
 - Project Specifics (below the marker): how those universals are realised for
   this stack, the toolchain, validation gates, and stack rules. Reconciled from
-  `docs/concept/` by `/sync-protocols`, and hand-editable.
+  `docs/concept/` by `/sync-protocol`, and hand-editable.
 
 The baseline states intent; Project Specifics states the concrete how. If a
 project looks nothing like a web app (an ML pipeline, a game, a batch system, a
@@ -28,7 +28,7 @@ native binary), nothing in the baseline changes: only Project Specifics does.
 - Skills, hooks, rules, and settings live under `.agents/`. The engine ships
   three canonical skills:
   - `find-skills`: discover and install new capabilities (`npx skills`).
-  - `sync-protocols`: reconcile this file and `DESIGN.md` against `docs/concept/`.
+  - `sync-protocol`: reconcile this file and `DESIGN.md` against `docs/concept/`.
   - `consolidate-state`: keep `BUILD_STATE.md` lean and self-consistent.
 - Skills the project depends on are vendored under `.agents/skills/` and committed
   (tracked in `skills-lock.json`), so every harness and a fresh clone get the same
@@ -41,11 +41,11 @@ native binary), nothing in the baseline changes: only Project Specifics does.
   It may be unstructured, so read all of it. Infer the stack and goals from it;
   do not expect a fixed file layout.
 - The `AGENTS.md` and `DESIGN.md` Project Specifics sections are derived from
-  `docs/concept/` via `/sync-protocols`. Users also hand-edit them, so never
+  `docs/concept/` via `/sync-protocol`. Users also hand-edit them, so never
   clobber human content: merge.
 - `BUILD_STATE.md` is the agent working area (state, progress, handoff). Agents
   own it; the user does not maintain it.
-- `ROADMAP.md` is optional. `/sync-protocols` creates it when the project needs
+- `ROADMAP.md` is optional. `/sync-protocol` creates it when the project needs
   several planned slices, ordered phases, or go/no-go gates that would make
   `BUILD_STATE.md` sprawl. `BUILD_STATE.md` then points at the active roadmap
   position instead of carrying the whole future plan.
@@ -63,7 +63,7 @@ native binary), nothing in the baseline changes: only Project Specifics does.
 - Never expand scope. Every changed line traces to the task; do not refactor
   unrelated code, and match existing style.
 - Never run a command that is not declared in Project Specifics. Ask, or add it
-  via `/sync-protocols`. Do not guess.
+  via `/sync-protocol`. Do not guess.
 - Get approval before destructive or outward-facing actions: commits, database
   writes, and any external comms (GitHub, Slack, issues).
 
@@ -77,7 +77,7 @@ clean compile plus an output diff; a native binary a sanitizer run.
 
 Every slice ends verified by exercising the change against reality (the running
 app, a pipeline run, a job's output, a binary run, the test suite), not by
-assuming from code. If no gates are declared, ask or run `/sync-protocols` before
+assuming from code. If no gates are declared, ask or run `/sync-protocol` before
 claiming validation.
 
 ## Delegation & model routing
@@ -114,7 +114,7 @@ Engineer for sudden death: a window can end abruptly.
    to its Session log, and run the closeout gates before commit. If
    `docs/concept/` changed, or implementation changed toolchain, validation,
    harness configuration, command surfaces, or project-specific behavior, run or
-   simulate `/sync-protocols` and record the result. If `Now` exceeds one screen,
+   simulate `/sync-protocol` and record the result. If `Now` exceeds one screen,
    logs sprawl, git/test reality contradicts state, a workspace Components table
    drifted, or three shipped slices accumulated since the last archive, run
    `/consolidate-state`.
@@ -124,13 +124,13 @@ Engineer for sudden death: a window can end abruptly.
 6. New decisions mid-build: take the smallest reversible default, log it in
    `BUILD_STATE.md`, flag it for the user. Do not silently expand scope.
 
-<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocols,
+<!-- BEGIN PROJECT SPECIFICS: reconciled from docs/concept/ by /sync-protocol,
 and hand-editable. Everything above is generic baseline; do not hand-edit it. -->
 
 ## Project Specifics
 
 > Reconciled from `docs/concept/` for Lumen, a Unity game. Re-run
-> `/sync-protocols` after editing the concept.
+> `/sync-protocol` after editing the concept.
 
 ### Descriptor
 
